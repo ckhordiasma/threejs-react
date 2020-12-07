@@ -2,17 +2,19 @@ import React from 'react';
 import * as THREE from "three";
 
 
-
+// speed is the only expected property so far. defaults to 0.01 if undefined by parent
 function ThreeScene({ speed = 0.01 }) {
+    
+    // on this function's return(), the mountPoint gets bound to the returned div.
     const mountPoint = React.useRef<HTMLDivElement>(null);
     
+    // Note the typescript syntax here, not sure how necessary this is.
     const [scene, setScene] = React.useState<THREE.Scene>(null);
     const [camera, setCamera] = React.useState<THREE.PerspectiveCamera>(null);
     const [renderer, setRenderer] = React.useState<THREE.WebGLRenderer>(null);
 
+    // tracks frame id, useful for when the animation loop needs to be modified
     const frameId = React.useRef(0)
-    const geometry = new THREE.BoxGeometry(1, 1, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
     
     const [sceneObjects, setSceneObjects] = React.useState(new Map());
     
@@ -52,6 +54,8 @@ function ThreeScene({ speed = 0.01 }) {
     //   sceneObjects is defined in the top as a React State, and can be referenced in the animation loop
     //    to make changes to specific
     const setupSceneObjects = () => {
+        const geometry = new THREE.BoxGeometry(1, 1, 1);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         const cube = new THREE.Mesh(geometry, material);
         setSceneObjects(sceneObjects.set('cube1', cube));
         scene.add(cube);        
