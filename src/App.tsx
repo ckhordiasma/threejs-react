@@ -11,8 +11,10 @@ function Controls({onSpeedChange}: ControlProps){
 
   return (
     <div>
-      <label>Change Speed: <input onChange={
-        (e)=>onSpeedChange(parseFloat(e.target.value) || 0)}>
+      <label>Change Speed: 
+        <input onChange={
+          (e) => onSpeedChange(parseFloat(e.target.value) || 0)
+        }>
           </input></label>
     </div>
   )
